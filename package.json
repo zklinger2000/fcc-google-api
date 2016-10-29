@@ -1,0 +1,40 @@
+{
+  "name": "fcc-google-api",
+  "version": "1.0.0",
+  "description": "Node.js, Express server with routes for an Authenticated Google User using Passport strategies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "NODE_ENV=development nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zklinger2000/fcc-google-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zklinger2000/fcc-google-api/issues"
+  },
+  "homepage": "https://github.com/zklinger2000/fcc-google-api#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "1.15.2",
+    "colors": "1.1.2",
+    "cors": "2.7.1",
+    "dotenv": "2.0.0",
+    "express": "4.14.0",
+    "fsevents": "1.0.14",
+    "googleapis": "12.0.0",
+    "jwt-simple": "0.5.0",
+    "mongoose": "4.5.4",
+    "morgan": "1.7.0",
+    "nodemailer": "2.6.4",
+    "nodemon": "1.11.0",
+    "passport": "0.3.2",
+    "passport-jwt": "2.1.0",
+    "request": "2.74.0"
+  }
+}
