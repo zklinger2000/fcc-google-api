@@ -7,7 +7,6 @@ const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// TODO: test route '/api/noauth' on heroku
 // TODO: add tests
 
 // Express App setup
