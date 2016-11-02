@@ -17,5 +17,5 @@ module.exports = function(app) {
 
   app.post('/api/auth/google/login', GoogleAuth.login);
 
-  app.post('/api/polls', Polls.createPoll);
+  app.post('/api/polls', requireAuth, Polls.createPoll);
 };
