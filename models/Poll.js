@@ -11,7 +11,18 @@ const pollSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  options: []
+  options: [],
+  createdById: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  createdByName: {
+    type: String,
+    required: true
+  },
+  modifiedAt: {
+    type: Date
+  }
 });
 
 // Create the model class

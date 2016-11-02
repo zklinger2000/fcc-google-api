@@ -9,7 +9,9 @@ exports.createPoll = function(req, res, next) {
     } else {
       const newPoll = new Poll({
         title: req.body.title,
-        options: req.body.options
+        options: req.body.options,
+        createdById: req.user._id,
+        createdByName: req.user.google.profileObj.name
       });
       newPoll.save();
       res.send(newPoll);
