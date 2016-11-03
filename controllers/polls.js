@@ -31,3 +31,11 @@ exports.getPolls = function(req, res, next) {
     }
   });
 };
+
+exports.getPollById = function(req, res, next) {
+  Poll.findOne({ "_id": req.params.id }, { createdById: false }, function(err, poll) {
+    if (err) return res.status(500).send({ error: err });
+    console.log('poll', poll);
+    res.send(poll);
+  });
+};

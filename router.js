@@ -21,4 +21,5 @@ module.exports = function(app) {
 
   app.post('/api/polls', requireAuth, Polls.createPoll);
 
+  app.get('/api/poll/id/:id', Polls.getPollById);
 };
