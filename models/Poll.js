@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const pollSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   createdAt: {
     type: Date,
@@ -19,6 +20,9 @@ const pollSchema = new Schema({
   createdByName: {
     type: String,
     required: true
+  },
+  createdByImageUrl: {
+    type: String
   },
   modifiedAt: {
     type: Date

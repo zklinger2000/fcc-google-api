@@ -11,10 +11,23 @@ exports.createPoll = function(req, res, next) {
         title: req.body.title,
         options: req.body.options,
         createdById: req.user._id,
-        createdByName: req.user.google.profileObj.name
+        createdByName: req.user.google.profileObj.givenName,
+        createdByImageUrl: req.user.google.profileObj.imageUrl
       });
       newPoll.save();
       res.send(newPoll);
+    }
+  });
+};
+
+exports.getPolls = function(req, res, next) {
+  Poll.find({}, function(err, polls) {
+    if (err) return res.status(500).send({ error: err });
+
+    if (polls) {
+      res.status(200).send(polls);
+    } else {
+      res.status(200).send([]);
     }
   });
 };
