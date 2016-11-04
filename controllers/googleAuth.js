@@ -8,7 +8,6 @@ function tokenForUser(user) {
 }
 
 exports.login = function(req, res, next) {
-  // console.log(req.body.El);
   // See if a user with the given Google id exists
   User.findOne({ 'google.El': req.body.El }, function(err, user) {
     if (err) return res.status(500).send({ error: err });
@@ -19,21 +18,30 @@ exports.login = function(req, res, next) {
       res.send({
         token: tokenForUser(user),
         user: {
-          name: user.google.profileObj.name
+          'name': user.google.profileObj.name,
+          'roles': {
+            'fcc-voting-app': user.roles['fcc-voting-app']
+          },
+          'email': user.google.profileObj.email
         }
       });
     } else {
       // Else, create new user and return token
-      // TODO: use lodash extend here to just grab the keys we want from google response
       const newUser = new User({
-        google: req.body
+        google: req.body,
+        roles: {
+          'fcc-voting-app': (req.body.profileObj.email === 'zack@zklinger.com' ? 'admin' : 'user')
+        }
       });
       newUser.save();
       res.send({
         token: tokenForUser(newUser),
-        // TODO: and update to just return newUser (and user above!)
         user: {
-          name: newUser.google.profileObj.name
+          'name': newUser.google.profileObj.name,
+          'roles': {
+            'fcc-voting-app': newUser.roles['fcc-voting-app']
+          },
+          'email': newUser.google.profileObj.email
         }
       });
     }

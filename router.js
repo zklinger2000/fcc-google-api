@@ -17,9 +17,11 @@ module.exports = function(app) {
 
   app.post('/api/auth/google/login', GoogleAuth.login);
 
-  app.get('/api/polls', Polls.getPolls);
-
   app.post('/api/polls', requireAuth, Polls.createPoll);
 
-  app.get('/api/poll/id/:id', Polls.getPollById);
+  app.get('/api/polls', Polls.readPolls);
+
+  app.get('/api/poll/id/:id', Polls.readPollById);
+
+  app.delete('/api/poll/id/:id', requireAuth, Polls.deletePollById);
 };

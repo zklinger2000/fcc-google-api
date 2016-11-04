@@ -12,7 +12,8 @@ exports.createPoll = function(req, res, next) {
         options: req.body.options,
         createdById: req.user._id,
         createdByName: req.user.google.profileObj.givenName,
-        createdByImageUrl: req.user.google.profileObj.imageUrl
+        createdByImageUrl: req.user.google.profileObj.imageUrl,
+        createdByEmail: req.user.google.profileObj.email
       });
       newPoll.save();
       res.send(newPoll);
@@ -20,7 +21,7 @@ exports.createPoll = function(req, res, next) {
   });
 };
 
-exports.getPolls = function(req, res, next) {
+exports.readPolls = function(req, res, next) {
   Poll.find({}, function(err, polls) {
     if (err) return res.status(500).send({ error: err });
 
@@ -32,10 +33,23 @@ exports.getPolls = function(req, res, next) {
   });
 };
 
-exports.getPollById = function(req, res, next) {
-  Poll.findOne({ "_id": req.params.id }, { createdById: false }, function(err, poll) {
+exports.readPollById = function(req, res, next) {
+  Poll.findOne({ "_id": req.params.id }, function(err, poll) {
     if (err) return res.status(500).send({ error: err });
-    console.log('poll', poll);
     res.send(poll);
+  });
+};
+
+exports.deletePollById = function(req, res, next) {
+  Poll.findOne({ '_id': req.params.id }, function(err, poll) {
+    if (err) return res.status(500).send({ error: err });
+    if (poll.createdById.toString().trim() === req.user._id.toString().trim()) {
+      poll.remove(function(err) {
+        if (err) return res.status(500).send({ error: err });
+        res.send(poll);
+      });
+    } else {
+      res.status(403).send({ message: 'User is not the owner' });
+    }
   });
 };

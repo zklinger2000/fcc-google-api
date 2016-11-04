@@ -24,6 +24,7 @@ const corsOptions = {
 };
 app.use(cors());  // Middleware for handling requests coming from different ports
 app.use(morgan('combined')); // Middleware for logging
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: '*/*' })); // Middleware parses incoming requests into JSON
 router(app);  // makes our app available to all of our routes
 

@@ -24,6 +24,9 @@ const pollSchema = new Schema({
   createdByImageUrl: {
     type: String
   },
+  createdByEmail: {
+    type: String
+  },
   modifiedAt: {
     type: Date
   }
