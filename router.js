@@ -23,5 +23,7 @@ module.exports = function(app) {
 
   app.get('/api/poll/id/:id', Polls.readPollById);
 
+  app.patch('/api/poll/id/:id', Polls.updatePoll);
+
   app.delete('/api/poll/id/:id', requireAuth, Polls.deletePollById);
 };

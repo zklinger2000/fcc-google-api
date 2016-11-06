@@ -7,9 +7,16 @@ exports.createPoll = function(req, res, next) {
     if (poll) {
       res.status(409).end();
     } else {
+      const options = req.body.options.map(function(option) {
+          return option.createdById ? option : {
+            text: option.text,
+            votes: option.votes,
+            createdById: req.user._id
+          };
+        });
       const newPoll = new Poll({
         title: req.body.title,
-        options: req.body.options,
+        options: options,
         createdById: req.user._id,
         createdByName: req.user.google.profileObj.givenName,
         createdByImageUrl: req.user.google.profileObj.imageUrl,
@@ -51,5 +58,15 @@ exports.deletePollById = function(req, res, next) {
     } else {
       res.status(403).send({ message: 'User is not the owner' });
     }
+  });
+};
+
+exports.updatePoll = function(req, res, next) {
+  Poll.findOne({ '_id': req.params.id }, function(err, poll) {
+    if (err) return res.status(500).send({ error: err });
+    poll.title = req.body.title;
+    poll.options = req.body.options;
+    poll.save();
+    res.send(poll);
   });
 };
