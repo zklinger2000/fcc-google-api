@@ -18,6 +18,7 @@ exports.login = function(req, res, next) {
       res.send({
         token: tokenForUser(user),
         user: {
+          '_id': user._id,
           'name': user.google.profileObj.name,
           'roles': {
             'fcc-voting-app': user.roles['fcc-voting-app']
@@ -37,6 +38,7 @@ exports.login = function(req, res, next) {
       res.send({
         token: tokenForUser(newUser),
         user: {
+          '_id': user._id,
           'name': newUser.google.profileObj.name,
           'roles': {
             'fcc-voting-app': newUser.roles['fcc-voting-app']
