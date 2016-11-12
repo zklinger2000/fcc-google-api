@@ -70,3 +70,19 @@ exports.updatePoll = function(req, res, next) {
     res.send(poll);
   });
 };
+
+exports.voteByIdAndOptionIndex = function(req, res, next) {
+  const update = {$inc: {}}; update.$inc['options.' + req.params.optionIndex + ".votes"] = 1;
+  Poll.findOneAndUpdate({ '_id': req.params.id }, update, {upsert: true}, function(err, poll) {
+    if (err) return res.status(500).send({ error: err });
+    // console.log(++poll.options[req.params.optionIndex].votes);
+    res.send(poll);
+  });
+};
+
+exports.getPollsByUserId = function(req, res, next) {
+  Poll.find({ 'createdById': req.params.id }, function(err, polls) {
+    if (err) return res.status(500).send({ error: err });
+    res.send(polls);
+  });
+};
