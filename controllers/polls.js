@@ -73,7 +73,7 @@ exports.updatePoll = function(req, res, next) {
 
 exports.voteByIdAndOptionIndex = function(req, res, next) {
   const update = {$inc: {}}; update.$inc['options.' + req.params.optionIndex + ".votes"] = 1;
-  Poll.findOneAndUpdate({ '_id': req.params.id }, update, {upsert: true}, function(err, poll) {
+  Poll.findOneAndUpdate({ '_id': req.params.id }, update, {upsert: true, new: true}, function(err, poll) {
     if (err) return res.status(500).send({ error: err });
     // console.log(++poll.options[req.params.optionIndex].votes);
     res.send(poll);
